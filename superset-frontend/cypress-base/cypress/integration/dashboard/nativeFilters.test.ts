@@ -33,18 +33,19 @@ describe('Nativefilters', () => {
     cy.get('.ant-form-horizontal').find('.ant-tabs-nav-add').first().click();
 
     cy.get('.ant-modal')
-      .find('[data-test="name-input"]')
-      .click()
+      .find('.ant-tabs-tab-btn')
+      .first()
+      .click({ force: true })
       .type('TEST_Filter');
 
-    cy.get('.ant-modal').find('[data-test="datasource-input"]').click();
+    cy.get('.ant-modal').find('[data-test="datasource-input"]').first().click();
 
     cy.get('[data-test="datasource-input"]')
       .contains('wb_health_population')
       .click();
 
     // possible bug with cypress where it is having issue discovering the field input
-    // after it is enable it is enabled
+    // after it is enabled
 
     /* cy.get('.ant-modal')
       .find('[data-test="field-input"]')

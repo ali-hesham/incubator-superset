@@ -33,27 +33,31 @@ export {
   Button,
   Card,
   Checkbox,
-  Collapse,
+  Col,
   DatePicker,
+  Divider,
   Dropdown,
   Form,
   Empty,
+  InputNumber,
   Modal,
   Typography,
   Tree,
   Popover,
+  Radio,
+  Row,
   Select,
   Skeleton,
   Switch,
-  Radio,
   Tabs,
   Tooltip,
 } from 'antd';
 export { TreeProps } from 'antd/lib/tree';
 export { FormInstance } from 'antd/lib/form';
 
-export { default as Badge } from 'src/common/components/Badge';
-export { default as Progress } from 'src/common/components/ProgressBar';
+export { default as Collapse } from './Collapse';
+export { default as Badge } from './Badge';
+export { default as Progress } from './ProgressBar';
 
 export const MenuItem = styled(AntdMenu.Item)`
   > a {
@@ -83,7 +87,7 @@ export const Input = styled(AntdInput)`
   &[type='text'],
   &[type='textarea'] {
     border: 1px solid ${({ theme }) => theme.colors.secondary.light3};
-    border-radius: ${({ theme }) => theme.gridUnit}px;
+    border-radius: ${({ theme }) => theme.borderRadius}px;
   }
 `;
 

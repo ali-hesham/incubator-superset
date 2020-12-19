@@ -30,7 +30,7 @@ export const chart = {
   chartUpdateStartTime: 0,
   latestQueryFormData: {},
   queryController: null,
-  queryResponse: null,
+  queriesResponse: null,
   triggerQuery: true,
   lastRendered: 0,
 };
@@ -47,8 +47,8 @@ export default function chartReducer(charts = {}, action) {
       return {
         ...state,
         chartStatus: 'success',
-        queryResponse: action.queryResponse,
         chartAlert: null,
+        queriesResponse: action.queriesResponse,
         chartUpdateEndTime: now(),
       };
     },
@@ -71,6 +71,14 @@ export default function chartReducer(charts = {}, action) {
         chartUpdateEndTime: now(),
       };
     },
+    [actions.CHART_UPDATE_QUEUED](state) {
+      return {
+        ...state,
+        asyncJobId: action.asyncJobMeta.job_id,
+        chartStatus: 'loading',
+        chartUpdateEndTime: now(),
+      };
+    },
     [actions.CHART_RENDERING_SUCCEEDED](state) {
       return { ...state, chartStatus: 'rendered', chartUpdateEndTime: now() };
     },
@@ -89,13 +97,13 @@ export default function chartReducer(charts = {}, action) {
       return {
         ...state,
         chartStatus: 'failed',
-        chartAlert: action.queryResponse
-          ? action.queryResponse.error
+        chartAlert: action.queriesResponse
+          ? action.queriesResponse?.[0]?.error
           : t('Network error.'),
         chartUpdateEndTime: now(),
-        queryResponse: action.queryResponse,
-        chartStackTrace: action.queryResponse
-          ? action.queryResponse.stacktrace
+        queriesResponse: action.queriesResponse,
+        chartStackTrace: action.queriesResponse
+          ? action.queriesResponse?.[0]?.stacktrace
           : null,
       };
     },

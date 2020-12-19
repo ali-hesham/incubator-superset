@@ -23,7 +23,7 @@ import {
   DASHBOARD_ROOT_TYPE,
   TABS_TYPE,
   TAB_TYPE,
-} from '../../util/componentTypes';
+} from 'src/dashboard/util/componentTypes';
 import { NativeFiltersState, Scope, TreeItem } from './types';
 
 export const isShowTypeInTree = ({ type, meta }: LayoutItem, charts?: Charts) =>
@@ -75,13 +75,13 @@ export const findFilterScope = (
   );
 
   const excluded: number[] = [];
-  const exclude = (parent: string, item: string) =>
+  const isExcluded = (parent: string, item: string) =>
     rootPath.includes(parent) && !checkedKeys.includes(item);
 
   Object.entries(layout).forEach(([key, value]) => {
     if (
       value.type === CHART_TYPE &&
-      value.parents?.find(parent => exclude(parent, key))
+      value.parents?.find(parent => isExcluded(parent, key))
     ) {
       excluded.push(value.meta.chartId);
     }
