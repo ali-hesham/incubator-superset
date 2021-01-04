@@ -17,6 +17,37 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<!-- changes made to superset code base for platformx analytics -->
+
+## logo
+========
+add logo under superset-frontend -> images -> superset-logo-goriz.png
+
+## favicon
+==========
+
+add favicon under the name favicon in superset-frontend -> images -> favicon.png
+
+## change App name
+===================
+
+change APP_NAME variable in config.py to the desired name
+
+## config.py
+=============
+
+to allow templating change  ENABLE_TEMPLATE_PROCESSING to True in superset config.py
+
+## viz.py
+=========
+
+to replace null values in pivot table with empty string change na_rep="null" -> na_rep=""
+
+## Mapbox
+==========
+
+add mapbox api key in config.py in MAPBOX_API_KEY variable
+
 Superset
 =========
 
@@ -164,3 +195,5 @@ how to set up a development environment.
   * [November 2020: Superset 1.0](https://www.youtube.com/watch?v=GwtWRUSEjk4)
 * [Building Custom Viz Plugins](https://superset.apache.org/docs/installation/building-custom-viz-plugins)
 * [Superset API](https://superset.apache.org/docs/rest-api)
+
+

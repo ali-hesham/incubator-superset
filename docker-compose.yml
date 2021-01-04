@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-x-superset-image: &superset-image apache/incubator-superset:latest-dev
+x-superset-image: &superset-image apache/incubator-superset:latest
 x-superset-depends-on: &superset-depends-on
   - db
   - redis
@@ -23,34 +23,34 @@ x-superset-volumes: &superset-volumes
   - ./docker:/app/docker
   - ./superset:/app/superset
   - ./superset-frontend:/app/superset-frontend
-  - superset_home:/app/superset_home
+  - ./volumes/superset_home:/app/superset_home
   - ./tests:/app/tests
 
 version: "3.7"
 services:
   redis:
     image: redis:3.2
-    container_name: superset_cache
+    container_name: superset_cache_1
     restart: unless-stopped
     ports:
       - "127.0.0.1:6379:6379"
     volumes:
-      - redis:/data
+      - ./volumes/redis:/data
 
   db:
     env_file: docker/.env
     image: postgres:10
-    container_name: superset_db
+    container_name: superset_postgres_1
     restart: unless-stopped
     ports:
       - "127.0.0.1:5432:5432"
     volumes:
-      - db_home:/var/lib/postgresql/data
+      - ./volumes/postgres:/var/lib/postgresql/data
 
   superset:
     env_file: docker/.env
     image: *superset-image
-    container_name: superset_app
+    container_name: superset_app_1
     command: ["/app/docker/docker-bootstrap.sh", "app"]
     restart: unless-stopped
     ports:
@@ -63,7 +63,7 @@ services:
 
   superset-init:
     image: *superset-image
-    container_name: superset_init
+    container_name: superset_init_1
     command: ["/app/docker/docker-init.sh"]
     env_file: docker/.env
     depends_on: *superset-depends-on
@@ -74,7 +74,7 @@ services:
 
   superset-node:
     image: node:12
-    container_name: superset_node
+    container_name: superset_node_1
     command: ["/app/docker/docker-frontend.sh"]
     env_file: docker/.env
     depends_on: *superset-depends-on
@@ -82,7 +82,7 @@ services:
 
   superset-worker:
     image: *superset-image
-    container_name: superset_worker
+    container_name: superset_worker_1
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
     env_file: docker/.env
     restart: unless-stopped
@@ -92,7 +92,7 @@ services:
 
   superset-tests-worker:
     image: *superset-image
-    container_name: superset_tests_worker
+    container_name: superset_tests_worker_1
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
     env_file: docker/.env
     environment:
@@ -109,7 +109,7 @@ services:
 volumes:
   superset_home:
     external: false
-  db_home:
+  postgres:
     external: false
   redis:
     external: false

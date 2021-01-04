@@ -191,7 +191,7 @@ PROXY_FIX_CONFIG = {"x_for": 1, "x_proto": 1, "x_host": 1, "x_port": 1, "x_prefi
 # GLOBALS FOR APP Builder
 # ------------------------------
 # Uncomment to setup Your App name
-APP_NAME = "Superset"
+APP_NAME = "PlatformX Analytics"
 
 # Uncomment to setup an App icon
 APP_ICON = "/static/assets/images/superset-logo-horiz.png"
@@ -307,7 +307,7 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "DISABLE_DATASET_SOURCE_EDIT": False,
     "DYNAMIC_PLUGINS": False,
     "ENABLE_EXPLORE_JSON_CSRF_PROTECTION": False,
-    "ENABLE_TEMPLATE_PROCESSING": False,
+    "ENABLE_TEMPLATE_PROCESSING": True,
     "KV_STORE": False,
     "PRESTO_EXPAND_DATA": False,
     # Exposes API endpoint to compute thumbnails
@@ -522,7 +522,7 @@ BACKUP_COUNT = 30
 QUERY_LOGGER = None
 
 # Set this API key to enable Mapbox visualizations
-MAPBOX_API_KEY = os.environ.get("MAPBOX_API_KEY", "")
+MAPBOX_API_KEY = os.environ.get("MAPBOX_API_KEY", "pk.eyJ1IjoibmFraGVlbC1kYXNoYm9hcmQiLCJhIjoiY2s1Y29yNzNuMXN6bDNtbGo2MWZyY21xaCJ9.8fzlNv8OFh_aHu7bz1NZkA")
 
 # Maximum number of rows returned from a database
 # in async mode, no more than SQL_MAX_ROW will be returned and stored
